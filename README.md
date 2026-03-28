@@ -7,20 +7,6 @@ Bu doküman, "EntityProjeUygulama" Windows Forms uygulamasının proje içeriği
 - C# sürümü: 7.3
 - Veri erişimi: Entity Framework (Database First - EDMX)
 
-Görseller (proje içinde `assets` veya `images` klasörü kullanılabilir):
-
-- `assets/form1.png` - Kategori yönetimi ekranı
-- `assets/frmUrun.png` - Ürün yönetimi ekranı
-- `assets/frmIstatistik.png` - İstatistik paneli
-
-![Kategori Yönetimi](assets/form1.png)
-
-![Ürün Yönetimi](assets/frmUrun.png)
-
-![İstatistikler](assets/frmIstatistik.png)
-
------------------------------------------------------------------
-
 ## Genel Amaç
 
 Uygulama, basit bir ürün ve kategori yönetim arayüzü sağlar. Kategori CRUD (Listele, Ekle, Sil, Güncelle), ürün yönetimi ve istatistiksel özet ekranları içerir. Veri işlemleri Entity Framework üzerinden doğrudan veritabanı ile gerçekleştirilir.
@@ -47,7 +33,7 @@ Uygulama, basit bir ürün ve kategori yönetim arayüzü sağlar. Kategori CRUD
   - Uygulama ana menüsü / gezinme
 
 - `FrmGiris.cs`  
-  - Giriş (varsa) veya kimlik doğrulama ekranı
+  - Giriş ekranı
 
 - `Model1.edmx`  
   - Entity Framework EDMX modeli (Database First). Veritabanı tabloları ve ilişkileri burada temsil edilir.
@@ -55,14 +41,13 @@ Uygulama, basit bir ürün ve kategori yönetim arayüzü sağlar. Kategori CRUD
 - `Program.cs`  
   - Uygulamanın başlangıç noktası
 
-## Veritabanı Modeli (Kısa Özet)
+## Veritabanı Modeli 
 
 - Database First yaklaşımıyla EDMX dosyası kullanılır; EDmx üzerinden context (`DbEntityUrunEntities`) ve entity sınıfları üretilir.
 - Örnek tablolar:
   - `Tbl_Kategori` (ID, Ad)
   - `Tbl_Urun` (ID, UrunAd, Marka, Stok, Fiyat, Durum, KategoriID)
-  - Ek tablolar: müşteri/satış/istatistik tabloları proje içinde bulunabilir.
-
+  - 
 ## CRUD İşleyişi (Kategori Örneği - `Form1.cs`)
 
 - Listeleme: `db.Tbl_Kategori.ToList()` sonuçları `dataGridView1.DataSource` olarak atanır.
@@ -89,14 +74,10 @@ Uygulama, basit bir ürün ve kategori yönetim arayüzü sağlar. Kategori CRUD
 - UI üzerinden girilen veriler Entity Framework context aracılığıyla veritabanına aktarılır.
 - Listeleme işlemleri `ToList()` ile veritabanından çekilen koleksiyonların DataGridView'e atanmasıyla yapılır.
 - Güncelleme ve silme işlemlerinde önce ilgili kayıt `Find` ile getirilir, değişiklik sonrası `SaveChanges()` çağrılır.
-- İstatistikler LINQ sorguları (ör. `Count()`, `Sum()`, `Max()`, `Min()`) ile hesaplanır.
+- İstatistikler LINQ sorguları (ör. `Count()`, `Sum()`) ile hesaplanır.
 
 ## Önemli Notlar
 
 - EDMX (Database First) model kullanıldığından veritabanı şemasında yapılan değişiklikler sonrasında EDMX'in güncellenmesi gerekir.
 - DataGridView hücre indekslerine göre değer alımı yapıldığından sütun sırası değişirse kodun güncellenmesi gerekebilir.
 - `DbEntityUrunEntities` context üzerinden yapılan işlemler doğrudan veritabanına etki eder; işlem öncesi gerekli doğrulamalar UI tarafında yapılmalıdır (ör. boş alan kontrolleri).
-
------------------------------------------------------------------
-
-Bu README sadece proje dosyası ve uygulama çalışma mantığı ile ilgili teknik bilgileri içerir. Görselleri proje içine ekleyip yukarıdaki yolları kullanarak README'de gösterim sağlayabilirsiniz.
